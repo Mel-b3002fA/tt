@@ -2,7 +2,8 @@ from flask import Flask, request, jsonify
 from transformers import pipeline
 
 app = Flask(__name__)
-model = pipeline("text-generation", model="mistralai/Mistral-7B-Instruct")
+model = pipeline("text-generation", model="gpt2")
+
 
 @app.route("/chat", methods=["POST"])
 def chat():
