@@ -11,12 +11,18 @@ def chat():
     response = model(data["input"], max_length=100)
     return jsonify({"response": response[0]["generated_text"]}) """
 
-@app.route("/chat", methods=["POST"])
+""" @app.route("/chat", methods=["POST"])
 def chat():
     data = request.json
     user_input = data.get("message", "")
     response = model(user_input, max_length=100, num_return_sequences=1)[0]["generated_text"]
-    return jsonify({"response": response})
+    return jsonify({"response": response}) """
+
+@app.route("/chat", methods=["POST"])
+def chat():
+    data = request.get_json()
+    return jsonify({"response": f"You said: {data['message']}"})
+
 
 if __name__ == "__main__":
     app.run(port=5000)
