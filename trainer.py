@@ -1,4 +1,4 @@
-from transformers import GPT2LMHeadModel, GPT2Tokenizer, Trainer, TrainingArguments
+""" from transformers import GPT2LMHeadModel, GPT2Tokenizer, Trainer, TrainingArguments
 
 # Load pre-trained model and tokenizer
 model = GPT2LMHeadModel.from_pretrained("gpt2")
@@ -22,3 +22,4 @@ trainer = Trainer(
 )
 
 trainer.train()
+ """
