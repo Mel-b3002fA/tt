@@ -28,7 +28,7 @@ if __name__ == "__main__":
     app.run(port=5000)
  """
 
-
+""" 
 from flask import Flask, request, jsonify
 from transformers import pipeline
 
@@ -49,4 +49,4 @@ def chat():
     return jsonify({"response": response[0]['generated_text']})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True) """
