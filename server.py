@@ -59,3 +59,5 @@ while True:
     if user.lower() == 'bye':
         print('Goodbye!')
         break
+
+    response = ollama.chat(model= 'llama3.1', message)
