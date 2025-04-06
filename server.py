@@ -57,3 +57,5 @@ import ollama
 while True:
     user = input('You: ')
     if user.lower() == 'bye':
+        print('Goodbye!')
+        break
