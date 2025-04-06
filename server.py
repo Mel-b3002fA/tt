@@ -60,4 +60,6 @@ while True:
         print('Goodbye!')
         break
 
-    response = ollama.chat(model= 'llama3.1', message)
+    response = ollama.chat(model= 'llama3.1', messages=[
+        {'role': 'user', 'content': user}
+    ])
