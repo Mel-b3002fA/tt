@@ -53,3 +53,7 @@ if __name__ == "__main__":
 
 
 import ollama 
+
+while True:
+    user = input('You: ')
+    if user.lower() == 'bye':
