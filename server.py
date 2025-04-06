@@ -34,7 +34,7 @@ from transformers import pipeline
 
 # Load the model from Hugging Face
 model = pipeline("text-generation", model="gpt2")
-
+`aa222
 app = Flask(__name__)
 
 @app.route('/chat', methods=['POST'])
@@ -50,3 +50,6 @@ def chat():
 
 if __name__ == "__main__":
     app.run(debug=True) """
+
+
+import ollama 
