@@ -29,8 +29,6 @@
 <body>
   <h2 class="header"><a href="" class="joi">Joi</a></h2>
   <div id="chat-box"></div>
-  <input type="text" id="user-input" placeholder="Type a message..." style="width: 80%;">
-  <button onclick="sendMessage()">Send</button>
 
 <!--   <script>
     async function sendMessage() {
@@ -52,28 +50,33 @@
       chatBox.scrollTop = chatBox.scrollHeight;
     }
   </script> -->
+  <div id="chat-box" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: auto;"></div>
+  <input type="text" id="user-input" placeholder="Type a message..." style="width: 80%;">
+  <button onclick="sendMessage()">Send</button>
+
   <script>
     async function sendMessage() {
       const input = document.getElementById('user-input');
       const message = input.value.trim();
       if (!message) return;
-  
+
       const chatBox = document.getElementById('chat-box');
-      chatBox.innerHTML += `<div class="message user"><strong>You:</strong> ${message}</div>`;
-  
+      chatBox.innerHTML += `<div><strong>You:</strong> ${message}</div>`;
+
       try {
         const res = await fetch('/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: message })  // <- Important
+          body: JSON.stringify({ message: message })
         });
-  
+
         const data = await res.json();
-        chatBox.innerHTML += `<div class="message bot"><strong>LLaMA3:</strong> ${data.reply}</div>`;
+        chatBox.innerHTML += `<div><strong>LLaMA3:</strong> ${data.reply}</div>`;
       } catch (err) {
-        chatBox.innerHTML += `<div class="message bot"><strong>Error:</strong> Couldn't reach the server.</div>`;
+        console.error(err);
+        chatBox.innerHTML += `<div style="color: red;"><strong>Error:</strong> Couldn't reach the server.</div>`;
       }
-  
+
       input.value = '';
       chatBox.scrollTop = chatBox.scrollHeight;
     }
