@@ -108,13 +108,13 @@ def index():
 @app.route('/chat', methods=['POST'])
 def chat():
     user_message = request.json.get('message')
-    print("Received:", user_message)  # <-- Add this
+    print("Received:", user_message) 
 
     conversation.append({'role': 'user', 'content': user_message})
     try:
         response = ollama.chat(model='llama3', messages=conversation)
         reply = response['message']['content']
-        print("Model reply:", reply)  # <-- Add this
+        print("Model reply:", reply)  
     except Exception as e:
         print("Error from Ollama:", e)
         reply = "Sorry, something went wrong."
