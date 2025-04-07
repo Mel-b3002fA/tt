@@ -94,11 +94,11 @@ while True:
 
     conversation.append({'role': 'assistant', 'content': reply})
 
-
-    from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template
 import ollama
 
 app = Flask(__name__)
+
 conversation = []
 
 @app.route('/')
@@ -107,14 +107,19 @@ def index():
 
 @app.route('/chat', methods=['POST'])
 def chat():
-    user_message = request.json.get('message')
-    print("Received:", user_message) 
+    data = request.get_json()
+    if not data or 'message' not in data:
+        return jsonify({'reply': 'Invalid message'}), 400
+
+    user_message = data['message']
+    print(f"User said: {user_message}")  # Debug print
 
     conversation.append({'role': 'user', 'content': user_message})
+
     try:
         response = ollama.chat(model='llama3', messages=conversation)
         reply = response['message']['content']
-        print("Model reply:", reply)  
+        print(f"LLaMA3 replied: {reply}")  # Debug print
     except Exception as e:
         print("Error from Ollama:", e)
         reply = "Sorry, something went wrong."
@@ -122,8 +127,5 @@ def chat():
     conversation.append({'role': 'assistant', 'content': reply})
     return jsonify({'reply': reply})
 
-
-if __name__ == '__main__':
-    app.run(debug=True)
 
 
