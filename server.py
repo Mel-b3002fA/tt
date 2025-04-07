@@ -90,7 +90,31 @@ while True:
     response = ollama.chat(model='llama3', messages=conversation)
 
     reply = response['message']['content']
-    print("LLaMA3:", reply)
+    print("Joi:", reply)
 
     conversation.append({'role': 'assistant', 'content': reply})
+
+
+    from flask import Flask, request, jsonify, render_template
+import ollama
+
+app = Flask(__name__)
+conversation = []
+
+@app.route('/')
+def index():
+    return render_template('chat.html')
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    user_message = request.json.get('message')
+    conversation.append({'role': 'user', 'content': user_message})
+    response = ollama.chat(model='llama3', messages=conversation)
+    reply = response['message']['content']
+    conversation.append({'role': 'assistant', 'content': reply})
+    return jsonify({'reply': reply})
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
 
