@@ -108,6 +108,7 @@ def index():
 @app.route('/chat', methods=['POST'])
 def chat():
     user_message = request.json.get('message')
+    print("Received:", user_message)  # <-- Add this
     conversation.append({'role': 'user', 'content': user_message})
     response = ollama.chat(model='llama3', messages=conversation)
     reply = response['message']['content']
