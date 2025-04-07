@@ -8,16 +8,24 @@
     #chat-box { border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: auto; }
     .message { margin-bottom: 10px; }
     .user { color: blue; }
-    .bot { color: green; }
-  </style>
+    .bot { color: yellow; }
+    .header{ font-family: Silkscreen;
+    font-size: 57.5px;
+    padding-top: 40px;
+    margin: 2px;
+    text-decoration: none;
+    color: var(--clr-text);}
 
+    a{text-decoration: none; color: inherit;}
+  </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Handjet:wght@100..900&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Pixelify+Sans:wght@400..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Handjet:wght@100..900&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Pixelify+Sans:wght@400..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="server.py">
 </head>
 <body>
-  <h2>Chat with LLaMA3</h2>
+  <h2 class="header"><a href="Joi">Joi</a></h2>
   <div id="chat-box"></div>
   <input type="text" id="user-input" placeholder="Type a message..." style="width: 80%;">
   <button onclick="sendMessage()">Send</button>
