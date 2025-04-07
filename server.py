@@ -51,7 +51,7 @@ def chat():
 if __name__ == "__main__":
     app.run(debug=True) """
 
-
+""" 
 import ollama 
 
 while True:
@@ -64,4 +64,33 @@ while True:
         {'role': 'user', 'content': user}
     ])
 print('Joi:', response['message']['content'])
-print(response)
+print(response) """
+
+""" import ollama
+
+response = ollama.chat(model='llama3', messages=[
+    {'role': 'user', 'content': 'Hello!'}
+])
+
+print("Model response:", response['message']['content']) """
+
+
+import ollama
+
+conversation = []
+
+print("You can start chatting with LLaMA3. Type 'exit' to quit.")
+
+while True:
+    user_input = input("You: ")
+    if user_input.lower() in ['exit', 'quit']:
+        break
+
+    conversation.append({'role': 'user', 'content': user_input})
+    response = ollama.chat(model='llama3', messages=conversation)
+
+    reply = response['message']['content']
+    print("LLaMA3:", reply)
+
+    conversation.append({'role': 'assistant', 'content': reply})
+
