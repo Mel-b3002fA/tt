@@ -109,11 +109,19 @@ def index():
 def chat():
     user_message = request.json.get('message')
     print("Received:", user_message)  # <-- Add this
+
     conversation.append({'role': 'user', 'content': user_message})
-    response = ollama.chat(model='llama3', messages=conversation)
-    reply = response['message']['content']
+    try:
+        response = ollama.chat(model='llama3', messages=conversation)
+        reply = response['message']['content']
+        print("Model reply:", reply)  # <-- Add this
+    except Exception as e:
+        print("Error from Ollama:", e)
+        reply = "Sorry, something went wrong."
+
     conversation.append({'role': 'assistant', 'content': reply})
     return jsonify({'reply': reply})
+
 
 if __name__ == '__main__':
     app.run(debug=True)
