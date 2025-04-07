@@ -75,30 +75,12 @@ response = ollama.chat(model='llama3', messages=[
 print("Model response:", response['message']['content']) """
 
 
-import ollama
 
-conversation = []
-
-print("You can start chatting with LLaMA3. Type 'exit' to quit.")
-
-while True:
-    user_input = input("You: ")
-    if user_input.lower() in ['exit', 'quit']:
-        break
-
-    conversation.append({'role': 'user', 'content': user_input})
-    response = ollama.chat(model='llama3', messages=conversation)
-
-    reply = response['message']['content']
-    print("Joi:", reply)
-
-    conversation.append({'role': 'assistant', 'content': reply})
 
 from flask import Flask, request, jsonify, render_template
 import ollama
 
 app = Flask(__name__)
-
 conversation = []
 
 @app.route('/')
@@ -112,14 +94,14 @@ def chat():
         return jsonify({'reply': 'Invalid message'}), 400
 
     user_message = data['message']
-    print(f"User said: {user_message}")  # Debug print
+    print(f"User said: {user_message}")
 
     conversation.append({'role': 'user', 'content': user_message})
 
     try:
         response = ollama.chat(model='llama3', messages=conversation)
         reply = response['message']['content']
-        print(f"LLaMA3 replied: {reply}")  # Debug print
+        print(f"LLaMA3 replied: {reply}")
     except Exception as e:
         print("Error from Ollama:", e)
         reply = "Sorry, something went wrong."
@@ -127,5 +109,5 @@ def chat():
     conversation.append({'role': 'assistant', 'content': reply})
     return jsonify({'reply': reply})
 
-
-
+if __name__ == '__main__':
+    app.run(debug=True)
