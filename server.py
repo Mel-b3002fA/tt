@@ -75,7 +75,7 @@ response = ollama.chat(model='llama3', messages=[
 print("Model response:", response['message']['content']) """
 
 
-
+""" 
 from flask import Flask, request, jsonify, render_template
 import ollama
 
@@ -109,5 +109,40 @@ def chat():
     return jsonify({'reply': reply})
 
 if __name__ == '__main__':
-   app.run(debug=True, port=5050)
+   app.run(debug=True, port=5050) """
+
+
+from flask import Flask, request, jsonify, render_template
+import ollama
+
+app = Flask(__name__)
+conversation = []
+
+@app.route('/')
+def index():
+    return render_template('chat.html')
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    data = request.get_json()
+
+    # Validate input
+    if not data or 'message' not in data:
+        return jsonify({'reply': 'Invalid message'}), 400
+
+    user_message = data['message']
+    print(f"User said: {user_message}")
+
+    # Append user message to conversation
+    conversation.append({'role': 'user', 'content': user_message})
+
+    try:
+        # Send full conversation to Ollama
+        response = ollama.chat(
+            model='llama3',
+            messages=conversation
+        )
+        reply = response['message']['content']
+        print(f"LLaMA3 replied: {reply}")
+
 
