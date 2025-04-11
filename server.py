@@ -134,8 +134,6 @@ def chat():
     print(f"User said: {user_message}")
 
     # Append user message to conversation
-    conversation.append({'role': 'user', 'content': user_message})
-
     try:
         # Send full conversation to Ollama
         response = ollama.chat(
@@ -144,5 +142,15 @@ def chat():
         )
         reply = response['message']['content']
         print(f"LLaMA3 replied: {reply}")
+
+        # Append AI reply to conversation
+        conversation.append({'role': 'assistant', 'content': reply})
+        return jsonify({'reply': reply})
+
+    except Exception as e:
+        # Catch errors and return a fallback response
+        print("Error from Ollama:", e)
+        return jsonify({'reply': "Sorry, something went wrong connecting to the model."}), 500
+
 
 
