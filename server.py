@@ -114,6 +114,8 @@ if __name__ == '__main__':
 
 from flask import Flask, request, jsonify, render_template
 import ollama
+ollama.base_url = "http://localhost:11435"
+
 
 app = Flask(__name__)
 conversation = []
