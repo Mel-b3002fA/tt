@@ -76,7 +76,6 @@ print("Model response:", response['message']['content']) """
 
 
 
-
 from flask import Flask, request, jsonify, render_template
 import ollama
 

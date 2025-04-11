@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat with LLaMA3</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h2>Chat with LLaMA3</h2>
+  <div id="chat-box" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: auto;"></div>
+  <input type="text" id="user-input" placeholder="Type a message..." style="width: 80%;">
+  <button onclick="sendMessage()">Send</button>
+
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById('user-input');
+      const message = input.value.trim();
+      if (!message) return;
+
+      const chatBox = document.getElementById('chat-box');
+      chatBox.innerHTML += `<div><strong>You:</strong> ${message}</div>`;
+
+      try {
+        const res = await fetch('/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: message })
+        });
+
+        const data = await res.json();
+        chatBox.innerHTML += `<div><strong>LLaMA3:</strong> ${data.reply}</div>`;
+      } catch (err) {
+        console.error(err);
+        chatBox.innerHTML += `<div style="color: red;"><strong>Error:</strong> Couldn't reach the server.</div>`;
+      }
+
+      input.value = '';
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>
