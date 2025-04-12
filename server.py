@@ -114,7 +114,7 @@ if __name__ == '__main__':
 
 from flask import Flask, request, jsonify, render_template
 import ollama
-ollama.base_url = "http://localhost:11435"
+ollama.base_url = "http://localhost:11434"
 
 
 app = Flask(__name__)
@@ -154,5 +154,7 @@ def chat():
         print("Error from Ollama:", e)
         return jsonify({'reply': "Sorry, something went wrong connecting to the model."}), 500
 
+if __name__ == '__main__':
+    app.run(debug=True)
 
 
