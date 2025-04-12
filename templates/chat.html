@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Chat with LLaMA3</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>Chat with JOI</title>
+
 </head>
 <body>
-  <h2>Chat with LLaMA3</h2>
+  <h2 class="joi">JOI</h2>
   <div id="chat-box" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: auto;"></div>
   <input type="text" id="user-input" placeholder="Type a message..." style="width: 80%;">
   <button onclick="sendMessage()">Send</button>
@@ -38,5 +38,7 @@
       chatBox.scrollTop = chatBox.scrollHeight;
     }
   </script>
+<!--   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+ -->
 </body>
 </html>
