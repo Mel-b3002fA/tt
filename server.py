@@ -114,7 +114,7 @@ if __name__ == '__main__':
 
 """ from flask import Flask, request, jsonify, render_template
 import ollama
-""" ollama.base_url = "http://localhost:11434" """
+
 ollama_url = "http://localhost:http://127.0.0.1:11434//api/chat"
 
 
@@ -161,12 +161,11 @@ if __name__ == '__main__':
 
  """
 
-
 from flask import Flask, request, jsonify, render_template
 import ollama
 
-# Correct Ollama URL
-ollama.base_url = "http://localhost:11434"  # This sets the correct URL for Ollama
+# Set the base URL for Ollama (Make sure Ollama is running on the correct port)
+ollama_url = "http://localhost:11434/api/chat"
 
 app = Flask(__name__)
 conversation = []
@@ -179,31 +178,41 @@ def index():
 def chat():
     data = request.get_json()
 
-  
+    # Validate input
     if not data or 'message' not in data:
         return jsonify({'reply': 'Invalid message'}), 400
 
     user_message = data['message']
     print(f"User said: {user_message}")
 
- 
+    # Append user message to conversation
+    conversation.append({'role': 'user', 'content': user_message})
+
     try:
-   
+        # Send the conversation history (including user input) to Ollama
         response = ollama.chat(
-            model='llama3',  
+            model='llama3',
             messages=conversation
         )
-        reply = response['message']['content']
-        print(f"LLaMA3 replied: {reply}")
 
-   
-        conversation.append({'role': 'assistant', 'content': reply})
-        return jsonify({'reply': reply})
+        # Check if the response has the expected structure
+        if 'message' in response and 'content' in response['message']:
+            reply = response['message']['content']
+            print(f"LLaMA3 replied: {reply}")
+            
+            # Append AI reply to conversation
+            conversation.append({'role': 'assistant', 'content': reply})
+
+            return jsonify({'reply': reply})
+
+        else:
+            print("Error: Unexpected response format")
+            return jsonify({'reply': "Sorry, something went wrong with the model's response."}), 500
 
     except Exception as e:
-
+        # Catch errors and return a fallback response
         print("Error from Ollama:", e)
         return jsonify({'reply': "Sorry, something went wrong connecting to the model."}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001) 
+    app.run(debug=True, port=5001)  # Running on port 5001 (or any other available port)
