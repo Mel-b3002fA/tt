@@ -112,7 +112,7 @@ if __name__ == '__main__':
    app.run(debug=True, port=5050) """
 
 
-from flask import Flask, request, jsonify, render_template
+""" from flask import Flask, request, jsonify, render_template
 import ollama
 """ ollama.base_url = "http://localhost:11434" """
 ollama_url = "http://localhost:http://127.0.0.1:11434//api/chat"
@@ -159,3 +159,51 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 
+ """
+
+
+from flask import Flask, request, jsonify, render_template
+import ollama
+
+# Correct Ollama URL
+ollama.base_url = "http://localhost:11434"  # This sets the correct URL for Ollama
+
+app = Flask(__name__)
+conversation = []
+
+@app.route('/')
+def index():
+    return render_template('chat.html')
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    data = request.get_json()
+
+    # Validate input
+    if not data or 'message' not in data:
+        return jsonify({'reply': 'Invalid message'}), 400
+
+    user_message = data['message']
+    print(f"User said: {user_message}")
+
+    # Append user message to conversation
+    try:
+        # Send full conversation to Ollama
+        response = ollama.chat(
+            model='llama3',  # You can change this model as per your requirement
+            messages=conversation
+        )
+        reply = response['message']['content']
+        print(f"LLaMA3 replied: {reply}")
+
+        # Append AI reply to conversation
+        conversation.append({'role': 'assistant', 'content': reply})
+        return jsonify({'reply': reply})
+
+    except Exception as e:
+        # Catch errors and return a fallback response
+        print("Error from Ollama:", e)
+        return jsonify({'reply': "Sorry, something went wrong connecting to the model."}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5001)  # Ensure you set a different port (like 5001) if 5000 is in use
