@@ -114,7 +114,8 @@ if __name__ == '__main__':
 
 from flask import Flask, request, jsonify, render_template
 import ollama
-ollama.base_url = "http://localhost:11434"
+""" ollama.base_url = "http://localhost:11434" """
+ollama_url = "http://localhost:http://127.0.0.1:11434//api/chat"
 
 
 app = Flask(__name__)
