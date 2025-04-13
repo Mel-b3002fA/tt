@@ -8,7 +8,7 @@
     const data = await response.json();
     return data.response;
 } */
-    const messageInput = document.getElementById("message-input");
+    /* const messageInput = document.getElementById("message-input");
     const modelSelector = document.getElementById("model-selector"); // if you're using one
     
     messageInput.addEventListener("keydown", function(event) {
@@ -42,4 +42,4 @@
             console.error("Error:", error);
         });
     }
-    
+     */
