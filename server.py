@@ -216,7 +216,7 @@ def chat():
 """ 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)  # Running on port 5001 (or any other available port) """
-if __name__ == '__main__':
+""" if __name__ == '__main__':
     import socket
 
     def find_free_port():
@@ -229,4 +229,4 @@ if __name__ == '__main__':
     port = find_free_port()
     print(f"Running on free port: {port}")
     app.run(debug=True, port=port)
-
+ """
