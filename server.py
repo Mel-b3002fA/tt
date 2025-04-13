@@ -230,3 +230,11 @@ if __name__ == '__main__':
     print(f"Running on free port: {port}")
     app.run(debug=True, port=port)
  """
+if __name__ == '__main__':
+    import sys
+
+    port = 5000  # default
+    if len(sys.argv) > 1 and sys.argv[1].startswith('--port='):
+        port = int(sys.argv[1].split('=')[1])
+
+    app.run(debug=True, port=port)

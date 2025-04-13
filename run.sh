@@ -10,4 +10,4 @@ if [ -n "$PID" ]; then
 fi
 
 echo "Starting server on port $PORT..."
-python server.py
+python server.py --port=$PORT
