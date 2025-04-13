@@ -198,7 +198,7 @@ def chat():
         # Check if the response has the expected structure
         if 'message' in response and 'content' in response['message']:
             reply = response['message']['content']
-            print(f"LLaMA3 replied: {reply}")
+            print(f"Joi replied: {reply}")
             
             # Append AI reply to conversation
             conversation.append({'role': 'assistant', 'content': reply})
@@ -213,6 +213,20 @@ def chat():
         # Catch errors and return a fallback response
         print("Error from Ollama:", e)
         return jsonify({'reply': "Sorry, something went wrong connecting to the model."}), 500
-
+""" 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)  # Running on port 5001 (or any other available port)
+    app.run(debug=True, port=5001)  # Running on port 5001 (or any other available port) """
+if __name__ == '__main__':
+    import socket
+
+    def find_free_port():
+        s = socket.socket()
+        s.bind(('', 0))  # Bind to any free port
+        port = s.getsockname()[1]
+        s.close()
+        return port
+
+    port = find_free_port()
+    print(f"Running on free port: {port}")
+    app.run(debug=True, port=port)
+
