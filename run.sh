@@ -1,13 +1,6 @@
 #!/bin/bash
+# Kill whatever is using port 5000
+lsof -ti:5000 | xargs kill -9 2>/dev/null
 
-PORT=5001
-
-PID=$(lsof -ti tcp:$PORT)
-
-if [ -n "$PID" ]; then
-  echo "Killing process on port $PORT (PID $PID)..."
-  kill -9 $PID
-fi
-
-echo "Starting server on port $PORT..."
-python server.py --port=$PORT
+# Run your Flask server
+python server.py
