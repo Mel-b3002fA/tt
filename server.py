@@ -230,6 +230,13 @@ if __name__ == '__main__':
     print(f"Running on free port: {port}")
     app.run(debug=True, port=port)
 
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app)  # Or configure specifically if needed
+
+
 """ if __name__ == '__main__':
     import sys
 
